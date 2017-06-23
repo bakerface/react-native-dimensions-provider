@@ -23,6 +23,41 @@
 
 'use strict';
 
-export { default as DimensionsProvider } from './dimensions-provider';
-export { default as MediaQuery } from './media-query';
-export { default as withDimensions } from './with-dimensions';
+import React from 'react';
+import PropTypes from 'prop-types';
+import withDimensions from './with-dimensions';
+
+class MediaQuery extends React.PureComponent {
+  render() {
+    const isMatch = (
+      (this.props.minWidth <= this.props.width) &&
+      (this.props.width <= this.props.maxWidth) &&
+      (this.props.minHeight <= this.props.height) &&
+      (this.props.height <= this.props.maxHeight)
+    );
+
+    return isMatch ? this.props.children : null;
+  }
+}
+
+MediaQuery.displayName = 'MediaQuery';
+
+MediaQuery.propTypes = {
+  children: PropTypes.node,
+  height: PropTypes.number.isRequired,
+  maxHeight: PropTypes.number,
+  maxWidth: PropTypes.number,
+  minHeight: PropTypes.number,
+  minWidth: PropTypes.number,
+  width: PropTypes.number.isRequired
+};
+
+MediaQuery.defaultProps = {
+  children: null,
+  maxHeight: Number.MAX_VALUE,
+  maxWidth: Number.MAX_VALUE,
+  minHeight: 0,
+  minWidth: 0
+};
+
+export default withDimensions(MediaQuery);

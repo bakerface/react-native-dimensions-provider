@@ -23,6 +23,9 @@
 
 'use strict';
 
-export { default as DimensionsProvider } from './dimensions-provider';
-export { default as MediaQuery } from './media-query';
-export { default as withDimensions } from './with-dimensions';
+import PropTypes from 'prop-types';
+
+export default {
+  width: PropTypes.number,
+  height: PropTypes.number
+};

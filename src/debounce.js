@@ -23,6 +23,11 @@
 
 'use strict';
 
-export { default as DimensionsProvider } from './dimensions-provider';
-export { default as MediaQuery } from './media-query';
-export { default as withDimensions } from './with-dimensions';
+export default function debounce(fn, millis) {
+  let timeout = null;
+
+  return function () {
+    clearTimeout(timeout);
+    timeout = setTimeout(fn.bind(this, ...arguments), millis);
+  };
+}

@@ -23,6 +23,57 @@
 
 'use strict';
 
-export { default as DimensionsProvider } from './dimensions-provider';
-export { default as MediaQuery } from './media-query';
-export { default as withDimensions } from './with-dimensions';
+import { Dimensions } from 'react-native';
+
+function addWindowResizeListener(fn) {
+  function onWindowResized() {
+    fn({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+  }
+
+  function remove() {
+    window.removeEventListener('resize', onWindowResized);
+  }
+
+  window.addEventListener('resize', onWindowResized);
+  return { remove };
+}
+
+function addDimensionsChangedListener(fn) {
+  function onDimensionsChanged(e) {
+    fn({
+      width: e.window.width,
+      height: e.window.height
+    });
+  }
+
+  function remove() {
+    Dimensions.removeEventListener('change', onDimensionsChanged);
+  }
+
+  Dimensions.addEventListener('change', onDimensionsChanged);
+  return { remove };
+}
+
+export default class Window {
+  static addResizeListener(fn) {
+    if (typeof window.addEventListener === 'function') {
+      return addWindowResizeListener(fn);
+    }
+
+    return addDimensionsChangedListener(fn);
+  }
+
+  static getDimensions() {
+    if (typeof window.addEventListener === 'function') {
+      return {
+        width: window.innerWidth,
+        height: window.innerHeight
+      };
+    }
+
+    return Dimensions.get('window');
+  }
+}

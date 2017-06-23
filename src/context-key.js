@@ -23,6 +23,4 @@
 
 'use strict';
 
-export { default as DimensionsProvider } from './dimensions-provider';
-export { default as MediaQuery } from './media-query';
-export { default as withDimensions } from './with-dimensions';
+export default '__DIMENSION_PROVIDER__';

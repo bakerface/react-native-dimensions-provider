@@ -23,6 +23,26 @@
 
 'use strict';
 
-export { default as DimensionsProvider } from './dimensions-provider';
-export { default as MediaQuery } from './media-query';
-export { default as withDimensions } from './with-dimensions';
+import React from 'react';
+import DimensionsContextKey from './context-key';
+import DimensionsContextTypes from './context-types';
+
+export default function withDimensions(Component) {
+  const name = Component.displayName || Component.name || 'Component';
+
+  class WithDimensions extends React.Component {
+    render() {
+      const dimensions = this.context[DimensionsContextKey];
+
+      return (
+        <Component {...dimensions} {...this.props}/>
+      );
+    }
+  }
+
+  WithDimensions.displayName = `WithDimensions(${name})`;
+  WithDimensions.WrappedComponent = Component;
+  WithDimensions.contextTypes = DimensionsContextTypes;
+
+  return WithDimensions;
+}

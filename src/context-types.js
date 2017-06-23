@@ -23,6 +23,10 @@
 
 'use strict';
 
-export { default as DimensionsProvider } from './dimensions-provider';
-export { default as MediaQuery } from './media-query';
-export { default as withDimensions } from './with-dimensions';
+import PropTypes from 'prop-types';
+import DimensionsPropTypes from './prop-types';
+import DimensionsContextKey from './context-key';
+
+export default {
+  [DimensionsContextKey]: PropTypes.shape(DimensionsPropTypes).isRequired
+};
