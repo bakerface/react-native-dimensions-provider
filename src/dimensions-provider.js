@@ -75,11 +75,10 @@ export default class DimensionsProvider extends React.PureComponent {
   }
 
   getChildContext() {
+    const { width = this.state.width, height = this.state.height } = this.props;
+
     return {
-      [DimensionsContextKey]: {
-        width: this.props.width || this.state.width,
-        height: this.props.height || this.state.height
-      }
+      [DimensionsContextKey]: { width, height }
     };
   }
 

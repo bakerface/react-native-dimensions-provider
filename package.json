@@ -1,6 +1,6 @@
 {
   "name": "react-native-dimensions-provider",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Provides window dimensions for react native and web",
   "main": "index.js",
   "author": "Chris Baker <mail.chris.baker@gmail.com>",

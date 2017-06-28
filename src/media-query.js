@@ -54,8 +54,8 @@ MediaQuery.propTypes = {
 
 MediaQuery.defaultProps = {
   children: null,
-  maxHeight: Number.MAX_VALUE,
-  maxWidth: Number.MAX_VALUE,
+  maxHeight: Number.MAX_SAFE_INTEGER,
+  maxWidth: Number.MAX_SAFE_INTEGER,
   minHeight: 0,
   minWidth: 0
 };
